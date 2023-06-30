@@ -1,10 +1,11 @@
 import React from 'react'
 import axios from "axios";
 import {useState} from "react";
-import { apiKey } from '../Api';
+
 const Content = () => {
    const [searchTerm, setSearchTerm] = useState("");
    const [data,setData]= useState({});
+   const apiKey = process.env.REACT_APP_API_KEY;
 
    const SearchHandler =()=>{
     if(!searchTerm)
