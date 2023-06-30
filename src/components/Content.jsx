@@ -23,11 +23,11 @@ const Content = () => {
     setSearchTerm("");
   }
   return (
-    <div className='h-screen w-full bg-slate-800'>
-      <div className='w-full flex items-center justify-center pt-7'>
+    <div className='min-h-screen w-full bg-slate-800'>
+      <div className='w-full flex items-center p-5 justify-between md:justify-center pt-7'>
         <input type='text' 
         placeholder='Enter a movie name' 
-        className='w-[40%] text-[19px] mr-4 outline-none rounded-md p-2'
+        className='w-full md:w-[40%] lg:w-[25%] text-[19px] mr-4 outline-none rounded-md p-2'
         value={searchTerm}
         onChange={e =>setSearchTerm(e.target.value)}></input>
         <button className='text-white border border-white rounded-md p-2 font-bold' 
@@ -37,11 +37,11 @@ const Content = () => {
           
       </div>
         { Object.keys(data).length > 0 &&
-          <div className='mt-10 w-full flex items-center justify-center text-white font-bold flex-wrap'>
-              <div>
-                <img src={data.Poster} alt="#" className='border border-white rounded-lg'/>
+          <div className='mt-10 w-full flex flex-col items-center justify-center gap-5 p-4 text-white font-bold lg:flex-row'>
+              <div className='md:ml-4'>
+                <img src={data.Poster} alt="#" className='border border-white rounded-lg w-full h-full'/>
               </div>
-              <div className='ml-5 mr-2 p-2 bg-slate-700 rounded-md'>
+              <div className=' p-2 bg-slate-700 rounded-md '>
                 <h1>Title: {data.Title}</h1>
                 <div className='pt-2'/>
                 <p>Director: {data.Director}</p>
@@ -52,7 +52,7 @@ const Content = () => {
                 <div className='pt-2'/>
                 <p>Country: {data.Country}</p>
                 <div className='pt-2'/>
-                <p>Actors: {data.Actorsr}</p>
+                <p>Actors: {data.Actors}</p>
                 <div className='pt-2'/>
                 <p>Language: {data.Language}</p>
                 <div className='pt-2'/>
