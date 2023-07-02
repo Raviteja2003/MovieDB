@@ -5,6 +5,7 @@ import {useState} from "react";
 const Content = () => {
    const [searchTerm, setSearchTerm] = useState("");
    const [data,setData]= useState({});
+   const [isLoading,setisLoading] = useState(false);
    const apiKey = process.env.REACT_APP_API_KEY;
 
    const SearchHandler =()=>{
@@ -12,6 +13,7 @@ const Content = () => {
     {
       return;
     }
+    setisLoading(true);
     axios(
       {
       method:"GET",
@@ -21,6 +23,9 @@ const Content = () => {
       setData(response.data);
       console.log(response.data);
     })
+    .finally(()=>{
+      setisLoading(false);
+    });
     setSearchTerm("");
   }
   return (
@@ -34,35 +39,42 @@ const Content = () => {
         <button className='text-white border border-white rounded-md p-2 font-bold' 
           onClick={SearchHandler}>
           search
-          </button>
-          
+          </button>  
       </div>
-        { Object.keys(data).length > 0 &&
-          <div className='mt-10 w-full flex flex-col items-center justify-center gap-5 p-4 text-white font-bold lg:flex-row'>
-              <div className='md:ml-4'>
-                <img src={data.Poster} alt="#" className='border border-white rounded-lg w-full h-full'/>
-              </div>
-              <div className=' p-2 bg-slate-700 rounded-md '>
-                <h1>Title: {data.Title}</h1>
-                <div className='pt-2'/>
-                <p>Director: {data.Director}</p>
-                <div className='pt-2'/>
-                <p>Genre: {data.Genre}</p>
-                <div className='pt-2'/>
-                <p>Year: {data.Year}</p>
-                <div className='pt-2'/>
-                <p>Country: {data.Country}</p>
-                <div className='pt-2'/>
-                <p>Actors: {data.Actors}</p>
-                <div className='pt-2'/>
-                <p>Language: {data.Language}</p>
-                <div className='pt-2'/>
-                <p>Rating: {data.imdbRating}</p>
-                <div className='pt-2'/>
-                <p>Plot: {data.Plot}</p>
-              </div>
+        { isLoading?(
+          <div className='w-full h-full flex items-center justify-center'>
+            <div className='animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white'>
             </div>
-        }
+          </div>
+        ):(Object.keys(data).length > 0 &&
+          (
+            <div className='mt-10 w-full flex flex-col items-center justify-center gap-5 p-4 text-white font-bold lg:flex-row'>
+                <div className='md:ml-4'>
+                  <img src={data.Poster} alt="#" className='border border-white rounded-lg w-full h-full'/>
+                </div>
+                <div className=' p-2 bg-slate-700 rounded-md '>
+                  <h1>Title: {data.Title}</h1>
+                  <div className='pt-2'/>
+                  <p>Director: {data.Director}</p>
+                  <div className='pt-2'/>
+                  <p>Genre: {data.Genre}</p>
+                  <div className='pt-2'/>
+                  <p>Year: {data.Year}</p>
+                  <div className='pt-2'/>
+                  <p>Country: {data.Country}</p>
+                  <div className='pt-2'/>
+                  <p>Actors: {data.Actors}</p>
+                  <div className='pt-2'/>
+                  <p>Language: {data.Language}</p>
+                  <div className='pt-2'/>
+                  <p>Rating: {data.imdbRating}</p>
+                  <div className='pt-2'/>
+                  <p>Plot: {data.Plot}</p>
+                </div>
+            </div>
+          )
+        )
+      }
     </div>
   )
 }
